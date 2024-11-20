@@ -1,36 +1,35 @@
 import express from 'express';
+import conectarAoBanco from '../src/config/dbConfig.js';
 
-const posts = [
-    {
-      id: 1,
-      descricao: 'foto teste 1',
-      imagem: 'https://placecats.com/millie/300/150'
-    },
-    {
-      id: 2,
-      descricao: 'foto teste 2',
-      imagem: 'https://placecats.com/millie/300/150'
-    },
-    {
-      id: 3,
-      descricao: 'foto teste 3',
-      imagem: 'https://placecats.com/millie/300/150'
-    },];
+// Conecta ao banco de dados usando a string de conexão fornecida como variável de ambiente.
+const conexao = await conectarAoBanco(process.env.STRING_CONEXAO);
 
+// Cria uma instância do servidor Express.
 const app = express();
-app.use(express.json())
+
+// Habilita o parsing de JSON no corpo das requisições.
+app.use(express.json());
+
+// Inicia o servidor na porta 3000 e exibe uma mensagem no console.
 app.listen(3000, () => {
-    console.log('Sevidor escutando...');
-    
+  console.log('Servidor escutando...');
 });
 
-function buscarPorID(id){
-    return posts.findIndex((post) => {
-        return post.id === Number(id)
-    })
+// Função assíncrona para obter todos os posts do banco de dados.
+async function getTodosPosts() {
+  // Seleciona o banco de dados "imersao-back-end".
+  const db = conexao.db("imersao-back-end");
+  // Seleciona a coleção "posts".
+  const colecao = db.collection("posts");
+  // Retorna um array com todos os documentos da coleção.
+  return colecao.find().toArray();
 }
 
-app.get('/posts', (req, res) => {
-    const index = buscarPorID(req.params.id)
-    res.status(200).json(posts[index]);
+// Rota para obter todos os posts.
+app.get("/posts", async (req, res) => {
+  // Chama a função para obter os posts do banco de dados.
+  const posts = await getTodosPosts();
+  // Envia os posts como resposta em formato JSON com status 200 (sucesso).
+  res.status(200).json(posts);
 });
+ 
