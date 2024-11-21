@@ -1,4 +1,4 @@
-import conectarAoBanco from "../config/dbConfig.js"
+import conectarAoBanco from '../config/dbConfig.js';
 // Conecta ao banco de dados usando a string de conexão fornecida como variável de ambiente.
 const conexao = await conectarAoBanco(process.env.STRING_CONEXAO);
 
@@ -9,6 +9,12 @@ export async function getTodosPosts() {
     // Seleciona a coleção "posts".
     const colecao = db.collection("posts");
     // Retorna um array com todos os documentos da coleção.
+    return colecao.find().toArray();
+  }
+
+  export async function criarPost(novoPost) {
+    const db = conexao.db("imersao-back-end");
+    const colecao = db.collection("posts");
     return colecao.find().toArray();
   }
   

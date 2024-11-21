@@ -1,4 +1,4 @@
-import { getTodosPosts } from '../models/postsModel.js';
+import { getTodosPosts, criarPost } from '../models/postsModel.js';
 
 export async function listarPosts(req, res) {
         // Chama a função para obter os posts do banco de dados.
