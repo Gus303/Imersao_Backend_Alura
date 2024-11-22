@@ -23,3 +23,4 @@ app.post("/upload", upload.single("imagem"), uploadImagem);
 }
 
 export default routes;
+ 
