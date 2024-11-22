@@ -1,4 +1,4 @@
-import { getTodosPosts, criarPost } from '../models/postsModel.js';
+import { getTodosPosts, criarPost } from "../models/postsModel.js";
 
 export async function listarPosts(req, res) {
         // Chama a função para obter os posts do banco de dados.
@@ -14,7 +14,7 @@ export async function postarNovoPost(req, res) {
          res.status(200).json(postCriado);
     } catch(erro) {
         console.error(erro.message);
-        res.status(500).json({'Erro':'Falha na requisição'})
+        res.status(500).json({"Erro":"Falha na requisição"})
         
     }
 
