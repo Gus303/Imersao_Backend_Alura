@@ -1,4 +1,5 @@
 import { getTodosPosts, criarPost } from "../models/postsModel.js";
+import fs from "fs";
 
 export async function listarPosts(req, res) {
         // Chama a função para obter os posts do banco de dados.
@@ -29,6 +30,7 @@ export async function uploadImagem(req, res) {
     try{
          const postCriado = await criarPost(novoPost);
          const imagemAtualizada = `uploads/${postCriado.insertedId}.png`
+         fs.renameSync(req.file.path, imagemAtualizada)
          res.status(200).json(postCriado);
     } catch(erro) {
         console.error(erro.message);
