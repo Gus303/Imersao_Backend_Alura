@@ -21,10 +21,15 @@ export async function postarNovoPost(req, res) {
 }
 
 export async function uploadImagem(req, res) {
-    // Chama a função para obter os posts do banco de dados.
-const posts = await getTodosPosts();
-    // Envia os posts como resposta em formato JSON com status 200 (sucesso).
-res.status(200).json(posts);
-}    
+    const novoPost = req.body;
+    try{
+         const postCriado = await criarPost(novoPost);
+         res.status(200).json(postCriado);
+    } catch(erro) {
+        console.error(erro.message);
+        res.status(500).json({"Erro":"Falha na requisição"})
+        
+    }
 
+} 
 
