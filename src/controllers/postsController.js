@@ -1,4 +1,4 @@
-import { getTodosPosts, criarPost } from "../models/postsModel.js";
+import { getTodosPosts, criarPost, atualizarPost } from "../models/postsModel.js";
 import fs from "fs";
 
 export async function listarPosts(req, res) {
@@ -49,7 +49,7 @@ export async function atualizarNovoPost(req, res) {
         alt: req.body.alt
     }
     try{
-         const postCriado = await criarPost(novoPost);
+         const postCriado = await atualizarPost(id, post);
          res.status(200).json(postCriado);
     } catch(erro) {
         console.error(erro.message);
