@@ -28,6 +28,7 @@ export async function uploadImagem(req, res) {
     };
     try{
          const postCriado = await criarPost(novoPost);
+         const imagemAtualizada = `uploads/${postCriado.insertedId}.png`
          res.status(200).json(postCriado);
     } catch(erro) {
         console.error(erro.message);
