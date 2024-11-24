@@ -18,5 +18,9 @@ export async function getTodosPosts() {
     return colecao.insertOne(novoPost);
   }
 
-  
+  export async function criarPost(novoPost) {
+    const db = conexao.db("imersao-back-end");
+    const colecao = db.collection("posts");
+    return colecao.insertOne(novoPost);
+  }
   
