@@ -40,3 +40,21 @@ export async function uploadImagem(req, res) {
 
 } 
 
+export async function atualizarNovoPost(req, res) {
+    const id = req.params.id;
+    const urlImagem = `http://localhost:3000/${id}.png`
+    const post = {
+        imgUr: urlImagem,
+        descricao: req.body.descricao,
+        alt: req.body.alt
+    }
+    try{
+         const postCriado = await criarPost(novoPost);
+         res.status(200).json(postCriado);
+    } catch(erro) {
+        console.error(erro.message);
+        res.status(500).json({"Erro":"Falha na requisição"})
+        
+    }
+
+}

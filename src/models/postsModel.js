@@ -17,4 +17,6 @@ export async function getTodosPosts() {
     const colecao = db.collection("posts");
     return colecao.insertOne(novoPost);
   }
+
+  
   
